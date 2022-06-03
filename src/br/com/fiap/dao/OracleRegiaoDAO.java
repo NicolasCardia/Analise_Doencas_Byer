@@ -14,18 +14,15 @@ public class OracleRegiaoDAO implements RegiaoDAO {
 
     private Connection conexao;
 
-    public void insert(Raca usuario) {
+    public void insert(Regiao regiao) {
         PreparedStatement stmt = null;
 
         try {
             conexao = EmpresaDBManager.obterConexao();
-            String sql = "INSERT INTO TB_REGIAO() VALUES (SQ_USUARIO.NEXTVAL, ?, ?, ?, ?)";
+            String sql = "INSERT INTO TB_REGIAO(CD_REGIAO, NM_REGIAO) VALUES (SQ_REGIAO.NEXTVAL, ?)";
             stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getEmail());
-            stmt.setFloat(3, usuario.getAltura());
-            stmt.setInt(4, usuario.getIdade());
-
+            stmt.setInt(1, regiao.getCd_regiao());
+            stmt.setString(2, regiao.getNm_regiao());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,24 +36,19 @@ public class OracleRegiaoDAO implements RegiaoDAO {
         }
     }
 
-    public List<Raca> getAll() {
-        List<Raca> lista = new ArrayList<Raca>();
+    public List<Regiao> getAll() {
+        List<Regiao> lista = new ArrayList<Regiao>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             conexao = EmpresaDBManager.obterConexao();
-            stmt = conexao.prepareStatement("SELECT * FROM TB_USUARIO");
+            stmt = conexao.prepareStatement("SELECT * FROM TB_REGIAO");
             rs = stmt.executeQuery();
-            //Percorre todos os registos
             while (rs.next()) {
-                int codigo = rs.getInt("ID_USUARIO");
-                String nome = rs.getString("NM_USER");
-                String email = rs.getString("EMAIL_USER");
-                float altura = rs.getFloat("ALTURA_USER");
-                int idade = rs.getInt("IDADE_USER");
-                // Cria um objeto Usuario com as inf encontrada
-                Raca usuario = new Raca(codigo, nome, email, altura, idade);
-                lista.add(usuario);
+                int cd_regiao = rs.getInt("CD_REGIAO");
+                String nm_regiao = rs.getString("NM_REGIAO");
+                Regiao newRegiao = new Regiao(cd_regiao, nm_regiao);
+                lista.add(newRegiao);
             }
 
         } catch (SQLException e) {
@@ -71,11 +63,5 @@ public class OracleRegiaoDAO implements RegiaoDAO {
             }
         }
         return lista;
-    }
-
-    @Override
-    public void insert(Regiao usuario) {
-        // TODO Auto-generated method stub
-        
     }
 }

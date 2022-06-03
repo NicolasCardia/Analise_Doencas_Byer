@@ -65,7 +65,7 @@ public class OraclePessoaDAO implements PessoaDAO {
                 int cd_doenca = rs.getInt("CD_DOENCA");
                 int cd_raca = rs.getInt("CD_RACA");
                 String genero = rs.getString("GENERO");
-                Boolean gravida = rs.getBoolean("GRAVIDA");
+                String gravida = rs.getString("GRAVIDA");
                 int cd_classe = rs.getInt("CD_CLASSE");
                 int cd_gravidade = rs.getInt("CD_GRAVIDADE");
                 int idade = rs.getInt("IDADE");

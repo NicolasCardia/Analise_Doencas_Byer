@@ -2,45 +2,34 @@ package br.com.fiap.bean;
 
 public class Doenca {
 
-    private int codigo;
+    private int cd_doenca;
 
-    private String nome;
+    private String nm_doenca;
 
-    private int cref;
-
-
-    public Doenca(int codigo, String nome, int cref) {
+    public Doenca(int cd_doenca, String nm_doenca) {
         super();
-        this.codigo = codigo;
-        this.nome = nome;
-        this.cref = cref;
+        this.cd_doenca = cd_doenca;
+        this.nm_doenca = nm_doenca;
     }
 
     public Doenca() {
         super();
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getCd_doenca() {
+        return cd_doenca;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCd_doenca(int cd_doenca) {
+        this.cd_doenca = cd_doenca;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNm_doenca() {
+        return nm_doenca;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNm_Doenca(String nm_doenca) {
+        this.nm_doenca = nm_doenca;
     }
 
-    public int getCref() {
-        return cref;
-    }
-
-    public void setCref(int cref) {
-        this.cref = cref;
-    }
 }

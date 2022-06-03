@@ -86,11 +86,11 @@ public class Pessoa {
         this.genero = genero;
     }
 
-    public Boolean getGravida() {
+    public String getGravida() {
         return gravida;
     }
 
-    public void setGravida(Boolean gravida) {
+    public void setGravida(String gravida) {
         this.gravida = gravida;
     }
 

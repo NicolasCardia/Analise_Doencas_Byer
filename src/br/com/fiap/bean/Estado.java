@@ -1,58 +1,56 @@
 package br.com.fiap.bean;
-import java.util.Calendar;
+
 public class Estado {
 
-    private int codigo;
+    private int cd_estado;
 
-    private String nome;
+    private String nm_estado;
 
-    //private String email;
+    private int codigo_regiao;
 
-    private int crn;
+    private int Regiao_cd_regiao;
 
-    //private Calendar dataContratacao;
-
-    /*public Nutricionista(int codigo, String nome, String email, double salario, Calendar dataContratacao) {
+    public Estado(int cd_estado, String nm_estado, int codigo_regiao, int Regiao_cd_regiao) {
         super();
-        this.codigo = codigo;
-        this.nome = nome;
-        this.email = email;
-        this.salario = salario;
-        this.dataContratacao = dataContratacao;
-    }*/
-
-    public Estado(int codigo, String nome, int crn) {
-        super();
-        this.codigo = codigo;
-        this.nome = nome;
-        this.crn = crn;
+        this.cd_estado = cd_estado;
+        this.nm_estado = nm_estado;
+        this.codigo_regiao = codigo_regiao;
+        this.Regiao_cd_regiao = Regiao_cd_regiao;
     }
 
     public Estado() {
         super();
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getCd_estado() {
+        return cd_estado;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCd_estado(int cd_estado) {
+        this.cd_estado = cd_estado;
     }
 
-    public int getCrn() {
-        return crn;
+    public String getNm_estado() {
+        return nm_estado;
     }
 
-    public void setCrn(int crn) {
-        this.crn = crn;
+    public void setNm_estado(String nm_estado) {
+        this.nm_estado = nm_estado;
     }
 
-    public String getNome() {
-        return nome;
+    public int getCodigo_regiao() {
+        return codigo_regiao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setCodigo_regiao(int codigo_regiao) {
+        this.codigo_regiao = codigo_regiao;
+    }
+    
+    public int getRegiao_cd_regiao() {
+        return Regiao_cd_regiao;
+    }
+
+    public void setRegiao_cd_regiao(int Regiao_cd_regiao) {
+        this.Regiao_cd_regiao = Regiao_cd_regiao;
     }
 }

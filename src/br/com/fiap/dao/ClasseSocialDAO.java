@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ClasseSocialDAO {
 
-    public void cadastrar(ClasseSocial classeSocial);
+    public void insert(ClasseSocial classeSocial);
 
-    public List<ClasseSocial> listar();
+    public List<ClasseSocial> getAll();
 
 }

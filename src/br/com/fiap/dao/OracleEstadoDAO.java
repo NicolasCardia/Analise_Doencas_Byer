@@ -1,6 +1,6 @@
 package br.com.fiap.dao;
 
-import br.com.fiap.bean.Doenca;
+import br.com.fiap.bean.Estado;
 import br.com.fiap.jdbc.EmpresaDBManager;
 
 import java.sql.Connection;
@@ -9,20 +9,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 public class OracleEstadoDAO implements EstadoDAO {
 
     private Connection conexao;
 
-    public void insert(Doenca professor) {
+    public void insert(Estado estado) {
         PreparedStatement stmt = null;
 
         try {
             conexao = EmpresaDBManager.obterConexao();
-            String sql = "INSERT INTO TB_PROFESSOR(ID_PROFESSOR, NM_PROFESSOR, CREF_PROFESSOR) VALUES (SQ_PROFESSOR.NEXTVAL, ?, ?)";
+            String sql = "INSERT INTO TB_ESTADO(CD_ESTADO, NM_ESTADO, CODIGO_REGIAO, REGIAO_CD_REGIAO) VALUES (SQ_ESTADO.NEXTVAL, ?, ?, ?)";
             stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, professor.getNome());
-            stmt.setInt(2, professor.getCref());
+            stmt.setInt(1, estado.getCd_estado());
+            stmt.setString(2, estado.getNm_estado());
+            stmt.setInt(3, estado.getCodigo_regiao());
+            stmt.setInt(4, estado.getRegiao_cd_regiao());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -37,22 +38,23 @@ public class OracleEstadoDAO implements EstadoDAO {
         }
     }
 
-    public List<Doenca> getAll() {
-        List<Doenca> lista = new ArrayList<>();
+    public List<Estado> getAll() {
+        List<Estado> lista = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             conexao = EmpresaDBManager.obterConexao();
-            stmt = conexao.prepareStatement("SELECT * FROM TB_PROFESSOR");
+            stmt = conexao.prepareStatement("SELECT * FROM TB_ESTADO");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int codigo = rs.getInt("ID_PROFESSOR");
-                String nome = rs.getString("NM_PROFESSOR");
-                int cref = rs.getInt("CREF_PROFESSOR");
+                int cd_estado = rs.getInt("CD_ESTADO");
+                String nm_estado = rs.getString("NM_ESTADO");
+                int codigo_regiao = rs.getInt("CODIGO_REGIAO");
+                int Regiao_cd_regiao = rs.getInt("REGIAO_CD_REGIAO");
 
-                Doenca professor = new Doenca(codigo, nome, cref);
-                lista.add(professor);
+                Estado newEstado = new Estado(cd_estado, nm_estado, codigo_regiao, Regiao_cd_regiao);
+                lista.add(newEstado);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,26 +68,5 @@ public class OracleEstadoDAO implements EstadoDAO {
             }
         }
         return lista;
-    }
-
-    public void remover(int codigo) {
-        PreparedStatement stmt = null;
-
-        try {
-            conexao = EmpresaDBManager.obterConexao();
-            String sql = "DELETE FROM TB_PROFESSOR WHERE ID_PROFESSOR = ?";
-            stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, codigo);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                stmt.close();
-                conexao.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-         }
     }
 }
