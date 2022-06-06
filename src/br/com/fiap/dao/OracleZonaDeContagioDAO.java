@@ -1,28 +1,31 @@
 package br.com.fiap.dao;
 
-import br.com.fiap.bean.Raca;
+import br.com.fiap.bean.ZonaDeContagio;
 import br.com.fiap.jdbc.EmpresaDBManager;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-public class OracleRacaDAO implements RacaDAO {
+public class OracleZonaDeContagioDAO implements ZonaDeContagioDAO {
 
     private Connection conexao;
 
-    public void insert(Raca raca) {
+    public void insert(ZonaDeContagio zonaDeContagio) {
         PreparedStatement stmt = null;
 
         try {
             conexao = EmpresaDBManager.obterConexao();
-            String sql = "INSERT INTO TB_RACA(CD_RACA, NM_USER) VALUES (SQ_USUARIO.NEXTVAL, ?)";
+            Date data = new Date(zonaDeContagio.getDt_contagio().getTime());
+            String sql = "INSERT INTO TB_ZONACONTAGIO(CD_ZONA, AREA_CONTAGIO, DT_CONTAGIO) VALUES (SQ_ESTADO.NEXTVAL, ?, ?)";
             stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, raca.getCd_raca());
-            stmt.setString(2, raca.getNm_raca());
+            stmt.setInt(1, zonaDeContagio.getCd_zona());
+            stmt.setString(2, zonaDeContagio.getArea_contagio());
+            stmt.setDate(3, data);
+            stmt.setDate(3, zonaDeContagio.getDt_contagio());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -37,21 +40,23 @@ public class OracleRacaDAO implements RacaDAO {
         }
     }
 
-    public List<Raca> getAll() {
-        List<Raca> lista = new ArrayList<Raca>();
+    public List<ZonaDeContagio> getAll() {
+        List<ZonaDeContagio> lista = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             conexao = EmpresaDBManager.obterConexao();
-            stmt = conexao.prepareStatement("SELECT * FROM TB_RACA");
+            stmt = conexao.prepareStatement("SELECT * FROM TB_ZONACONTAGIO");
             rs = stmt.executeQuery();
-            while (rs.next()) {
-                int cd_raca = rs.getInt("CD_RACA");
-                String nm_raca = rs.getString("NM_RACA");
-                Raca raca = new Raca(cd_raca, nm_raca);
-                lista.add(raca);
-            }
 
+            while (rs.next()) {
+                int cd_zona = rs.getInt("CD_ZONA");
+                String area_contagio = rs.getString("AREA_CONTAGIO");
+                Date dt_contagio = rs.getDate("DT_CONTAGIO");
+
+                ZonaDeContagio newZonaDeContagio = new ZonaDeContagio(cd_zona, area_contagio, dt_contagio);
+                lista.add(newZonaDeContagio);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
